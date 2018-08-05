@@ -8,6 +8,7 @@
 </head>
 <body>
 ${message}
+${user}
 <br>
 <a href="/">Home Page</a>
 </body>

@@ -1,16 +1,21 @@
 package pl.springproject.twitter_app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.User;
+import pl.springproject.twitter_app.repository.UserRepository;
 
 import javax.validation.Valid;
 
 @Controller
-public class HomeController {
+public class LoginController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value = {"/", "/login"},  method = RequestMethod.GET)
     public String getLoginPage(Model model) {
@@ -37,6 +42,7 @@ public class HomeController {
         if (result.hasErrors()) {
             return "registration";
         }
+        userRepository.save(user);
         model.addAttribute("message", "User added");
         return "success";
     }

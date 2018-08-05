@@ -10,11 +10,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="login.css">
-    <script src="login.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -26,10 +26,10 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="#" class="active" id="login-form-link">Login</a>
+                            <a href="/login" class="active" id="login-form-link">Login</a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="#" id="register-form-link">Register</a>
+                            <a href="/registration" id="register-form-link">Register</a>
                         </div>
                     </div>
                     <hr>
@@ -61,30 +61,6 @@
                                             <div class="text-center">
                                                 <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form:form>
-                            <form:form method="post" modelAttribute="user" id="register-form" action="/registration" role="form" style="display: none;">
-                                <div class="form-group">
-                                    <form:input path="userName" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
-                                    <form:errors path="userName" cssClass="error"/>
-                                </div>
-                                <div class="form-group">
-                                    <form:input path="email" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=""/>
-                                    <form:errors path="email" cssClass="error"/>
-                                </div>
-                                <div class="form-group">
-                                    <form:input path="password" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"/>
-                                    <form:errors path="password" cssClass="error"/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
                                         </div>
                                     </div>
                                 </div>

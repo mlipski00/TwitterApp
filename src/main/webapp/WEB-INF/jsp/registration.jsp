@@ -17,9 +17,11 @@
     <title>Title</title>
 </head>
 <body>
-
-<!------ Include the above in your HEAD tag ---------->
-
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">

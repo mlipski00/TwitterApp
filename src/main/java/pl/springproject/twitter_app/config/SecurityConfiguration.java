@@ -33,9 +33,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/tweets/**").authenticated()
-                .anyRequest().permitAll()
+                //.anyRequest().permitAll()
                 //.and().formLogin().permitAll();
-                .and().formLogin().loginPage("/login").permitAll();
+                //anyRequest().authenticated()
+                .and().formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticateTheUser")
+                .permitAll();
     }
 
     private PasswordEncoder getPasswordEncoder() {

@@ -23,12 +23,13 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/login"},  method = RequestMethod.POST)
-    public String processLogin(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "login";
-        }
-        model.addAttribute("message", "User logged");
+    @RequestMapping(value = {"/tweets/index"},  method = RequestMethod.GET)
+    public String processLogin(String logout, String error, Model model) {
+//        if (error != null)
+//            model.addAttribute("error", "Your username and password is invalid.");
+//
+//        if (logout != null)
+//            model.addAttribute("message", "You have been logged out successfully.");
         return "success";
     }
 

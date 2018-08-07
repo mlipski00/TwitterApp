@@ -17,20 +17,20 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = {"/", "/login"},  method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"},  method = RequestMethod.GET)
     public String getLoginPage(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
-    @RequestMapping(value = {"/tweets/index"},  method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/tweets/index"},  method = RequestMethod.GET)
     public String processLogin(String logout, String error, Model model) {
 //        if (error != null)
 //            model.addAttribute("error", "Your username and password is invalid.");
 //
 //        if (logout != null)
 //            model.addAttribute("message", "You have been logged out successfully.");
-        return "success";
+        return "tweetsIndex";
     }
 
     @RequestMapping(value = {"/registration"},  method = RequestMethod.GET)

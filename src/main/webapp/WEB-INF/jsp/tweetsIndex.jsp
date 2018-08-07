@@ -15,7 +15,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <title>Tweeter Mock App</title>
     <!-- Icons-->
     <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
     <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
@@ -25,6 +25,12 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
 </head>
+<style>
+    .btn-dark{
+        background-color:white;
+        color:white;
+    }
+</style>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
@@ -43,9 +49,6 @@
         </li>
         <li class="nav-item px-3">
             <a class="nav-link" href="#">Users</a>
-        </li>
-        <li class="nav-item px-3">
-            <a class="nav-link" href="#">Settings</a>
         </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
@@ -68,40 +71,34 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-speedometer"></i> Dashboard
-                        <span class="badge badge-primary">NEW</span>
-                    </a>
+                        <a class="nav-link nav-link-success" href="#" target="_top">
+                            <i class="nav-icon icon-cloud-download"></i> Tweet now!</a>
                 </li>
-                <li class="nav-title">Theme</li>
+                <li class="nav-title">Explore App</li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon icon-drop"></i> Colors</a>
+                        <i class="nav-icon icon-drop"></i> Newest tweets</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon icon-pencil"></i> Typography</a>
+                        <i class="nav-icon icon-pencil"></i> Message</a>
                 </li>
-                <li class="nav-title">Components</li>
+                <li class="nav-title">Comments</li>
                 <li class="nav-item nav-dropdown">
                     <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon icon-puzzle"></i> Base</a>
+                        <i class="nav-icon icon-puzzle"></i> Comments menu</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Breadcrumb</a>
+                                <i class="nav-icon icon-puzzle"></i> All comments</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Cards</a>
+                                <i class="nav-icon icon-puzzle"></i> Newest 10 comments</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Carousel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="b#">
-                                <i class="nav-icon icon-puzzle"></i> Collapse</a>
+                                <i class="nav-icon icon-puzzle"></i> Oldest 10 comments</a>
                         </li>
 
                     </ul>
@@ -112,21 +109,18 @@
     <main class="main">
         <!-- Breadcrumb-->
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">Home</li>
             <li class="breadcrumb-item">
-                <a href="#">Admin</a>
+                <a href="#">All tweets</a>
             </li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item">
+                <a href="#">Newest 10 tweets</a>
+            </li>
             <!-- Breadcrumb Menu-->
             <li class="breadcrumb-menu d-md-down-none">
                 <div class="btn-group" role="group" aria-label="Button group">
-                    <a class="btn" href="#">
-                        <i class="icon-speech"></i>
-                    </a>
+
                     <a class="btn" href="./">
-                        <i class="icon-graph"></i>  Dashboard</a>
-                    <a class="btn" href="#">
-                        <i class="icon-settings"></i>  Settings</a>
+                        <i class="fa fa-user-o fa-lg mt-2"></i>  Hello {username}</a>
                 </div>
             </li>
         </ol>
@@ -139,10 +133,6 @@
     <div>
         <a href="https://github.com/mlipski00">GitHub</a>
         <span>&copy; 2018 Michał Lipski.</span>
-    </div>
-    <div class="ml-auto">
-        <span>Powered by</span>
-        <a href="https://github.com/mlipski00">GitHub</a>
     </div>
 </footer>
 <script src="node_modules/pace-progress/pace.min.js"></script>

@@ -30,6 +30,7 @@ public class User {
 
     @NotEmpty
     @Size(min = 6, max = 20)
+    @Column(name = "password")
     private String password;
 
     private boolean active;

@@ -6,10 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.springproject.twitter_app.domain.Role;
 import pl.springproject.twitter_app.domain.User;
 import pl.springproject.twitter_app.repository.UserRepository;
 
 import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class LoginController {
@@ -24,12 +27,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"/", "/tweets/index"},  method = RequestMethod.GET)
-    public String processLogin(String logout, String error, Model model) {
-//        if (error != null)
-//            model.addAttribute("error", "Your username and password is invalid.");
-//
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
+    public String processLogin() {
         return "tweetsIndex";
     }
 
@@ -43,6 +41,10 @@ public class LoginController {
         if (result.hasErrors()) {
             return "registration";
         }
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role("MOCK"));
+        user.setActive(true);
+        user.setRoles(roles);
         userRepository.save(user);
         model.addAttribute("message", "User added");
         return "success";

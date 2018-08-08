@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.CustomUserDetailsService;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
@@ -36,9 +39,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 //.anyRequest().permitAll()
                 //.and().formLogin().permitAll();
                 //anyRequest().authenticated()
-                .and().formLogin()
-                //.loginPage("/login")
-                //.loginProcessingUrl("/authenticateTheUser")
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/tweets/index")
                 .permitAll();
     }
 
@@ -51,7 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-                return true;
+                Pattern p = Pattern.compile(s);
+                Matcher m = p.matcher(charSequence);
+                return m.matches();
             }
         };
     }

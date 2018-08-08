@@ -42,8 +42,8 @@
                         <div class="col-lg-12">
                             <form:form method="post" modelAttribute="user" id="register-form" action="/registration" role="form" style="display: block;">
                                 <div class="form-group">
-                                    <form:input path="userName" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
-                                    <form:errors path="userName" cssClass="error"/>
+                                    <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
+                                    <form:errors path="username" cssClass="error"/>
                                 </div>
                                 <div class="form-group">
                                     <form:input path="email" type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=""/>

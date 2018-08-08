@@ -26,7 +26,7 @@ public class User {
 
     @NotEmpty
     @Column(name = "name")
-    private String userName;
+    private String username;
 
     @NotEmpty
     @Size(min = 6, max = 20)
@@ -47,7 +47,7 @@ public class User {
         this.active = user.isActive();
         this.email = user.getEmail();
         this.roles = user.getRoles();
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.id = user.getId();
         this.password = user.getPassword();
     }

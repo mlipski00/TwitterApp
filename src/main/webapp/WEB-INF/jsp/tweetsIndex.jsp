@@ -60,8 +60,8 @@
         </li>
         <li>
             <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                <button class="btn btn-block btn-ghost-dark" type="button">Log Out</button>
-            </div>
+                <a href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off fa-2x"></i></a>
+           </div>
         </li>
     </ul>
 

@@ -37,13 +37,15 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form:form method="post" id="login-form" action="${pageContext.request.contextPath}/authenticateTheUser" role="form" style="display: block;">
+                            <form:form method="post" id="login-form" action="${pageContext.request.contextPath}/tweets/index" role="form" modelAttribute="user" style="display: block;">
                                 <c:if test="${param.error != null}">
                                     <i class="failed">Invalid username/password</i>
                                 </c:if>
-                                <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">
-                                </div>
+                                <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
+                                <form:errors path="username" cssClass="error"/>
+                                <%--<div class="form-group">--%>
+                                    <%--<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">--%>
+                                <%--</div>--%>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value="user">
                                 </div>
@@ -62,7 +64,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                                <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
                                             </div>
                                         </div>
                                     </div>

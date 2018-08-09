@@ -41,8 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 //anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login")
-                .loginProcessingUrl("/tweets/index")
+                .formLogin()
+                .loginPage("/login")
+                //.loginProcessingUrl("/tweets/index")
                 .permitAll();
     }
 

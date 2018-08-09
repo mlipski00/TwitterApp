@@ -37,11 +37,11 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form:form method="post" id="login-form" action="${pageContext.request.contextPath}/tweets/index" role="form" modelAttribute="user" style="display: block;">
+                            <form:form method="post" id="login-form" action="${pageContext.request.contextPath}/login"  modelAttribute="user"  role="form" style="display: block;">
                                 <c:if test="${param.error != null}">
-                                    <i class="failed">Invalid username/password</i>
+                                    <i class="failed">Invalid email/password</i>
                                 </c:if>
-                                <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
+                                <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" value=""/>
                                 <form:errors path="username" cssClass="error"/>
                                 <%--<div class="form-group">--%>
                                     <%--<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">--%>

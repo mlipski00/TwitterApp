@@ -126,15 +126,15 @@
         <%--=================cards=================--%>
         <div class="row">
             <c:forEach items="${allusers}" var="singleUser">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
-                        <p class="card-text">Email: ${singleUser.email}</p>
-                        <a href="#" class="btn btn-primary">Tweets</a>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
+                            <p class="card-text">Email: ${singleUser.email}</p>
+                            <a href="#" class="btn btn-primary">Tweets</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             </c:forEach>
         </div>
     </main>

@@ -9,6 +9,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 <head>
     <base href="./">
@@ -125,14 +126,38 @@
 
         <%--=================cards=================--%>
         <div class="w-90 p-3 align-content-center">
-            <div class="row">
+            <div class="row align-content-center">
                 <c:forEach items="${tweets}" var="tweet">
                     <div class="col-xs-3 col-md-5 col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">${tweet.id}. ${tweet.user.username}</h5>
+                                <h6>${tweet.created}</h6>
                                 <p class="card-text">${tweet.text}</p>
                                 <a href="#" class="btn btn-primary">Comment</a>
+                                <hr>
+                                <c:if test="${fn:length(tweet.comments) < 1}">
+                                    <i class="failed">No comments</i>
+                                </c:if>
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                    <c:forEach items="${tweet.comments}" var="comment">
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>${comment.user.username}</td>
+                                        <td>${comment.created}</td>
+                                        <td>${comment.text}</td>
+                                        <c:if test="${comment.user.email == user.email}">
+                                            <td>
+                                                <a href="#" class="btn btn-outline-warning btn-sm">Edit</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                            </td>
+                                        </c:if>
+                                    </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

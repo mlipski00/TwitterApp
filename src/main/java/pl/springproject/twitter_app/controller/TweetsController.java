@@ -23,7 +23,8 @@ public class TweetsController {
     public String getAllTweets(Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
-        model.addAttribute("tweets", tweetRepository.findAll());
+        model.addAttribute("tweets", tweetRepository.findAllByOrderByIdDesc());
+        System.out.println(tweetRepository.findAllByOrderByIdDesc());
         return "alltweets";
     }
 

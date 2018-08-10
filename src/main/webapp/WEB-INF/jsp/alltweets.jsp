@@ -125,19 +125,19 @@
 
         <%--=================cards=================--%>
         <div class="w-90 p-3 align-content-center">
-        <div class="row">
-            <c:forEach items="${allusers}" var="singleUser">
-                <div class="col-sm-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
-                            <p class="card-text">Email: ${singleUser.email}</p>
-                            <a href="#" class="btn btn-primary">Tweets</a>
+            <div class="row">
+                <c:forEach items="${tweets}" var="tweet">
+                    <div class="col-xs-3 col-md-5 col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${tweet.id}. ${tweet.user.username}</h5>
+                                <p class="card-text">${tweet.text}</p>
+                                <a href="#" class="btn btn-primary">Comment</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
-        </div>
+                </c:forEach>
+            </div>
         </div>
     </main>
 </div>

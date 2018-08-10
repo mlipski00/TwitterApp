@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.Role;
 import pl.springproject.twitter_app.domain.User;
+import pl.springproject.twitter_app.repository.RoleRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -22,6 +24,9 @@ public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private AuthenticationFacade authenticationFacade;
@@ -58,7 +63,11 @@ public class LoginController {
             return "registration";
         }
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role("MOCK"));
+        Optional<Role> optionalRole = roleRepository.findByRole("USER");
+        if (!optionalRole.isPresent()) {
+            return "500"; //todo
+        }
+        roles.add(optionalRole.get());
         user.setActive(true);
         user.setRoles(roles);
         userRepository.save(user);

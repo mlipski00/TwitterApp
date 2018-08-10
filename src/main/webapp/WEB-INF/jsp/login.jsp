@@ -47,7 +47,7 @@
                                     <%--<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">--%>
                                 <%--</div>--%>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value="user">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value="user123">
                                 </div>
                                 <div class="form-group text-center">
                                     <input type="checkbox" tabindex="3" class="" name="remember" id="remember">

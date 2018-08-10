@@ -20,7 +20,7 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    private User user;
+    private Tweet tweet;
 
     @CreationTimestamp
     private Date created;

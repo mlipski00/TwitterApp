@@ -105,7 +105,7 @@
         <!-- Breadcrumb-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">All tweets</a>
+                <a href="${pageContext.request.contextPath}/tweets">All tweets</a>
             </li>
             <li class="breadcrumb-item">
                 <a href="#">Newest 10 tweets</a>
@@ -115,7 +115,7 @@
                 <div class="btn-group" role="group" aria-label="Button group">
 
                     <a class="btn" href="./">
-                        <i class="fa fa-user-o fa-lg mt-2"></i>  Hello ${user}!</a>
+                        <i class="fa fa-user-o fa-lg mt-2"></i>  Hello ${user.username}!</a>
                 </div>
             </li>
         </ol>
@@ -124,18 +124,20 @@
         </div>
 
         <%--=================cards=================--%>
-        <div class="row">
-            <c:forEach items="${allusers}" var="singleUser">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
-                        <p class="card-text">Email: ${singleUser.email}</p>
-                        <a href="#" class="btn btn-primary">Tweets</a>
-                    </div>
-                </div>
+        <div class="w-90 p-3 align-content-center">
+            <div class="row">
+                    <c:forEach items="${allusers}" var="singleUser">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
+                                    <p class="card-text">Email: ${singleUser.email}</p>
+                                    <a href="#" class="btn btn-primary">Tweets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
             </div>
-            </c:forEach>
         </div>
     </main>
 </div>

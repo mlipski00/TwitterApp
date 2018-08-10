@@ -1,9 +1,6 @@
 package pl.springproject.twitter_app.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 @Table(name = "user")
 public class User {
 
@@ -39,8 +37,10 @@ public class User {
     @Email
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User(User user) {
@@ -50,5 +50,12 @@ public class User {
         this.username = user.getUsername();
         this.id = user.getId();
         this.password = user.getPassword();
+    }
+
+    public User(@NotEmpty String username, @NotEmpty @Size(min = 6, max = 20) String password, boolean active, @NotEmpty @Email String email) {
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.email = email;
     }
 }

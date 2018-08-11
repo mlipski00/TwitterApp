@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.Role;
+import pl.springproject.twitter_app.domain.Tweet;
 import pl.springproject.twitter_app.domain.User;
 import pl.springproject.twitter_app.repository.RoleRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
@@ -43,14 +44,11 @@ public class LoginController {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("allusers", userRepository.findAll());
+        model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+        model.addAttribute("formMessage", "Add tweet");
+        model.addAttribute("tweet", new Tweet());
         return "tweetsIndex";
     }
-
-//    @RequestMapping(value = {"/tweets/index"},  method = RequestMethod.POST)
-//    public String processLogin(@ModelAttribute User user, Model model) {
-//        return "tweetsIndex";
-//    }
-
 
     @RequestMapping(value = {"/registration"},  method = RequestMethod.GET)
     public String getRegistrationPage(Model model) {

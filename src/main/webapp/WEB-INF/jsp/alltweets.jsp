@@ -125,10 +125,11 @@
         </div>
 
         <%--=================cards=================--%>
-        <div class="w-90 p-3 align-content-center">
-            <div class="row align-content-center">
+        <div class="container">
+            <h1  class="w-90 p-3 align-content-center">${pageMessage}</h1>
+            <div class="row">
                 <c:forEach items="${tweets}" var="tweet">
-                    <div class="col-xs-3 col-md-5 col-md-4">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">${tweet.id}. ${tweet.user.username}</h5>

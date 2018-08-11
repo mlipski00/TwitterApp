@@ -49,6 +49,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private Set<Comment> comments;
 
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_tweets",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tweet_id"))
+    private Set<Tweet> tweets;
+
     public User(User user) {
         this.active = user.isActive();
         this.email = user.getEmail();

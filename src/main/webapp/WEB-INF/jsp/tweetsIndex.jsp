@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 <head>
     <base href="./">
@@ -18,10 +18,12 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <title>Tweeter Mock App</title>
     <!-- Icons-->
-    <link href="${pageContext.request.contextPath}/node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/node_modules/@coreui/icons/css/coreui-icons.min.css"
+          rel="stylesheet">
     <link href="${pageContext.request.contextPath}/node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/node_modules/simple-line-icons/css/simple-line-icons.css"
+          rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
@@ -32,8 +34,10 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="${pageContext.request.contextPath}/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="${pageContext.request.contextPath}/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
+        <img class="navbar-brand-full" src="${pageContext.request.contextPath}/img/brand/logo.svg" width="89"
+             height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" src="${pageContext.request.contextPath}/img/brand/sygnet.svg" width="30"
+             height="30" alt="CoreUI Logo">
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
@@ -56,7 +60,7 @@
         <li>
             <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
                 <a href="${pageContext.request.contextPath}/logout"><i class="fa fa-power-off fa-2x"></i></a>
-           </div>
+            </div>
         </li>
     </ul>
 
@@ -66,8 +70,8 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                        <a class="nav-link nav-link-success" href="#" target="_top">
-                            <i class="nav-icon icon-cloud-download"></i> Tweet now!</a>
+                    <a class="nav-link nav-link-success" href="#" target="_top">
+                        <i class="nav-icon icon-cloud-download"></i> Tweet now!</a>
                 </li>
                 <li class="nav-title">Explore App</li>
                 <li class="nav-item">
@@ -124,19 +128,29 @@
         </div>
 
         <%--=================cards=================--%>
-        <div class="w-90 p-3 align-content-center">
-            <div class="row">
-                    <c:forEach items="${allusers}" var="singleUser">
-                        <div class="col-sm-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${singleUser.id}. ${singleUser.username}</h5>
-                                    <p class="card-text">Email: ${singleUser.email}</p>
-                                    <a href="#" class="btn btn-primary">Tweets</a>
+        <div class="container">
+            <h1 class="w-90 p-3 align-content-center">${user.username}! ${pageMessage}</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form:form method="post" action="${pageContext.request.contextPath}/addTweet"
+                               modelAttribute="tweet" role="form" style="display: block;">
+                        <h4 class="w-90 p-3 align-content-center">${formMessage}</h4>
+                        <input class="form-control" type="text" placeholder="${user.username}" readonly>
+                        <hr>
+                        <div class="form-group">
+                            <%--<textarea class="form-control" placeholder="Type tweet content" rows="3"></textarea>--%>
+                            <form:input path="text" type="text" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type tweet content" value=""/>
+                            <form:errors path="text" cssClass="error"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="submit" class="form-control btn btn-success" value="Add tweet">
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                    </form:form>
+                </div>
             </div>
         </div>
     </main>
@@ -151,9 +165,14 @@
 <script src="${pageContext.request.contextPath}/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
 
 
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
 </body>
 </html>

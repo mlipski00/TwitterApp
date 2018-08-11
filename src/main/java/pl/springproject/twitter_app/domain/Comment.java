@@ -3,16 +3,17 @@ package pl.springproject.twitter_app.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 public class Comment {
 

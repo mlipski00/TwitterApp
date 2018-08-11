@@ -47,7 +47,7 @@ public class TweetsController {
         Authentication authentication = authenticationFacade.getAuthentication();
         if (result.hasErrors()) {
             model.addAttribute("user", authentication.getPrincipal());
-            model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+            model.addAttribute("pageMessage", "Add new tweet.");
             model.addAttribute("formMessage", "Add tweet");
             model.addAttribute("formAction", "addTweet");
             return "tweetForm";
@@ -75,7 +75,7 @@ public class TweetsController {
         Tweet tweet = optionalTweet.get();
         model.addAttribute("tweet", tweet);
         System.out.println(tweet);
-        model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+        model.addAttribute("pageMessage", "Edit your tweet.");
         model.addAttribute("formMessage", "Edit tweet");
         model.addAttribute("formAction", "editTweet");
         return "tweetForm";
@@ -88,7 +88,7 @@ public class TweetsController {
         if (result.hasErrors()) {
             model.addAttribute("user", authentication.getPrincipal());
             model.addAttribute("tweet", tweet);
-            model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+            model.addAttribute("pageMessage", "Edit your tweet.");
             model.addAttribute("formMessage", "Add tweet");
             model.addAttribute("formAction", "editTweet");
             return "tweetForm";

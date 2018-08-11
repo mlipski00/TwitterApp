@@ -133,20 +133,18 @@
             <div class="card">
                 <div class="card-body">
                     <form:form method="post" action="${pageContext.request.contextPath}/${formAction}"
-                               modelAttribute="tweet" role="form" style="display: block;">
+                               modelAttribute="comment" role="form" style="display: block;">
                         <h4 class="w-90 p-3 align-content-center">${formMessage}</h4>
                         <input class="form-control" type="text" placeholder="${user.username}" readonly/>
                         <hr>
                         <div class="form-group">
-                            <form:textarea path="text" type="textarea" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type tweet content" value=""/>
+                            <form:textarea path="text" type="textarea" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type comment" value=""/>
                             <form:errors path="text" cssClass="error"/>
                         </div>
-                            <form:hidden path="id" value="${tweet.id}" />
-                            <%--<form:hidden path="user" value="${tweet.user}" />--%>
+                            <form:hidden path="id" value="${comment.id}" />
+                            <form:hidden path="tweet" value="${comment.tweet.id}" />
                         <div class="form-group">
-
                                     <input type="submit" class="form-control btn btn-success" value="${formMessage}">
-
                         </div>
                     </form:form>
                 </div>

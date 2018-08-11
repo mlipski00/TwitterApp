@@ -85,19 +85,19 @@
                 </li>
                 <li class="nav-title">Comments</li>
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
+                    <a class="nav-link nav-dropdown-toggle" href="${pageContext.request.contextPath}/">
                         <i class="nav-icon icon-puzzle"></i> Comments menu</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/">
                                 <i class="nav-icon icon-puzzle"></i> All comments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/">
                                 <i class="nav-icon icon-puzzle"></i> Newest 10 comments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/">
                                 <i class="nav-icon icon-puzzle"></i> Oldest 10 comments</a>
                         </li>
 
@@ -140,7 +140,7 @@
                                 <h6>${tweet.created}</h6>
                                 <p class="card-text">${tweet.text}</p>
                                 <div class="btn-group" role="group">
-                                    <a href="#" class="btn btn-primary">Comment</a>
+                                    <a href="${pageContext.request.contextPath}/addComment/${tweet.id}" class="btn btn-primary">Comment</a>
                                     <c:if test="${tweet.user.email == user.email}">
                                         <a href="${pageContext.request.contextPath}/tweet/edit/${tweet.id}" class="btn btn-warning">Edit</a>
                                         <a href="#" class="btn btn-danger">Delete</a>

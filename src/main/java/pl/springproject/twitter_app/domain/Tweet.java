@@ -38,14 +38,4 @@ public class Tweet {
             inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private Set<Comment> comments;
 
-    @Override
-    public String toString() {
-        return "Tweet{" +
-                "id=" + id +
-                ", user=" + user +
-                ", text='" + text + '\'' +
-                ", created=" + created +
-                ", comments=" + comments +
-                '}';
-    }
 }

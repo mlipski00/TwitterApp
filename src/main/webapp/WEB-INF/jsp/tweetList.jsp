@@ -9,6 +9,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 <head>
     <base href="./">
@@ -129,28 +130,49 @@
 
         <%--=================cards=================--%>
         <div class="container">
-            <h1 class="w-90 p-3 align-content-center">${user.username}! ${pageMessage}</h1>
-            <div class="card">
-                <div class="card-body">
-                    <form:form method="post" action="${pageContext.request.contextPath}/addTweet"
-                               modelAttribute="tweet" role="form" style="display: block;">
-                        <h4 class="w-90 p-3 align-content-center">${formMessage}</h4>
-                        <input class="form-control" type="text" placeholder="${user.username}" readonly>
-                        <hr>
-                        <div class="form-group">
-                            <%--<textarea class="form-control" placeholder="Type tweet content" rows="3"></textarea>--%>
-                            <form:input path="text" type="text" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type tweet content" value=""/>
-                            <form:errors path="text" cssClass="error"/>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <input type="submit" class="form-control btn btn-success" value="Add tweet">
+            <h1 class="w-90 p-3 align-content-center">${pageMessage}</h1>
+            <div class="row">
+                <c:forEach items="${tweets}" var="tweet">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${tweet.id}. ${tweet.user.username}</h5>
+                                <h6>${tweet.created}</h6>
+                                <p class="card-text">${tweet.text}</p>
+                                <div class="btn-group" role="group">
+                                    <a href="#" class="btn btn-primary">Comment</a>
+                                    <c:if test="${tweet.user.email == user.email}">
+                                        <a href="${pageContext.request.contextPath}/tweet/edit/${tweet.id}" class="btn btn-warning">Edit</a>
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                    </c:if>
                                 </div>
+                                <hr>
+                                <c:if test="${fn:length(tweet.comments) < 1}">
+                                    <i class="failed">No comments</i>
+                                </c:if>
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                    <c:forEach items="${tweet.comments}" var="comment">
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>${comment.user.username}</td>
+                                        <td>${comment.created}</td>
+                                        <td>${comment.text}</td>
+                                        <c:if test="${comment.user.email == user.email}">
+                                            <td>
+                                                <a href="#" class="btn btn-outline-warning btn-sm">Edit</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+                                            </td>
+                                        </c:if>
+                                    </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </form:form>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </main>

@@ -1,15 +1,14 @@
 package pl.springproject.twitter_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.CustomUserDetails;
-import pl.springproject.twitter_app.domain.Role;
 import pl.springproject.twitter_app.domain.Tweet;
 import pl.springproject.twitter_app.domain.User;
 import pl.springproject.twitter_app.repository.TweetRepository;
@@ -18,7 +17,6 @@ import pl.springproject.twitter_app.service.AuthenticationFacade;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,7 +39,7 @@ public class TweetsController {
         model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("tweets", tweetRepository.findAllByOrderByIdDesc());
         model.addAttribute("pageMessage", "All tweets");
-        return "alltweets";
+        return "tweetList";
     }
 
     @RequestMapping(value = "/addTweet", method = RequestMethod.POST)
@@ -49,10 +47,10 @@ public class TweetsController {
         Authentication authentication = authenticationFacade.getAuthentication();
         if (result.hasErrors()) {
             model.addAttribute("user", authentication.getPrincipal());
-            model.addAttribute("tweets", tweetRepository.findAllByOrderByIdDesc());
             model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
             model.addAttribute("formMessage", "Add tweet");
-            return "tweetsIndex";
+            model.addAttribute("formAction", "addTweet");
+            return "tweetForm";
         }
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Optional<User> userOptional = userRepository.findByEmail(customUserDetails.getEmail());
@@ -66,6 +64,40 @@ public class TweetsController {
         Set<Tweet> userTweets = user.getTweets();
         userTweets.add(tweet);
         userRepository.save(user);
+        return "redirect:tweets";
+    }
+
+    @RequestMapping(value = "tweet/edit/{id}", method = RequestMethod.GET)
+    public String tweetEdit(@PathVariable("id") long id, Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        model.addAttribute("user", authentication.getPrincipal());
+        Optional<Tweet> optionalTweet = tweetRepository.findById(id);
+        Tweet tweet = optionalTweet.get();
+        model.addAttribute("tweet", tweet);
+        System.out.println(tweet);
+        model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+        model.addAttribute("formMessage", "Edit tweet");
+        model.addAttribute("formAction", "editTweet");
+        return "tweetForm";
+    }
+
+    @RequestMapping(value = "/editTweet", method = RequestMethod.POST)
+    public String editTweet(@Valid Tweet tweet, BindingResult result, Model model) {
+        System.out.println(tweet);
+        Authentication authentication = authenticationFacade.getAuthentication();
+        if (result.hasErrors()) {
+            model.addAttribute("user", authentication.getPrincipal());
+            model.addAttribute("tweet", tweet);
+            model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
+            model.addAttribute("formMessage", "Add tweet");
+            model.addAttribute("formAction", "editTweet");
+            return "tweetForm";
+        }
+        model.addAttribute("user", authentication.getPrincipal());
+        Optional<Tweet> optionalTweet = tweetRepository.findById(tweet.getId());
+        Tweet tweet2 = optionalTweet.get();
+        tweet2.setText(tweet.getText());
+        tweetRepository.save(tweet2);
         return "redirect:tweets";
     }
 }

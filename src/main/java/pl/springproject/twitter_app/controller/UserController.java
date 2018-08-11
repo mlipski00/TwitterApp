@@ -23,6 +23,6 @@ public class UserController {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("allusers", userRepository.findAll());
-        return "allusers";
+        return "userList";
     }
 }

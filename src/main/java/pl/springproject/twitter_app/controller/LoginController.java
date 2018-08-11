@@ -5,7 +5,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.Role;
@@ -47,7 +46,8 @@ public class LoginController {
         model.addAttribute("pageMessage", "Welcome on Tweeter App index page.");
         model.addAttribute("formMessage", "Add tweet");
         model.addAttribute("tweet", new Tweet());
-        return "tweetsIndex";
+        model.addAttribute("formAction", "addTweet");
+        return "tweetForm";
     }
 
     @RequestMapping(value = {"/registration"},  method = RequestMethod.GET)
@@ -70,6 +70,6 @@ public class LoginController {
         user.setRoles(roles);
         userRepository.save(user);
         model.addAttribute("message", "User added");
-        return "success";
+        return "tweetForm";
     }
 }

@@ -93,19 +93,17 @@
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="nav-icon icon-puzzle"></i> Comments menu</a>
                     <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> All comments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Newest 10 comments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Oldest 10 comments</a>
-                        </li>
-
+                        <a class="nav-link nav-dropdown-toggle" href="${pageContext.request.contextPath}/">
+                            <i class="nav-icon icon-puzzle"></i> Messages menu</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/">
+                                    <i class="nav-icon icon-puzzle"></i> Inbox</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/">
+                                    <i class="nav-icon icon-puzzle"></i> Outbox</a>
+                            </li>
                     </ul>
                 </li>
         </nav>
@@ -135,10 +133,10 @@
 
         <%--=================main=================--%>
         <div class="container">
-            <h1 class="w-90 p-3 align-content-center">${user.username}! Write message.</h1>
+            <h1 class="w-90 p-3 align-content-center">${user.username}! Write message</h1>
             <div class="card">
                 <div class="card-body">
-                    <form:form method="post" action="${pageContext.request.contextPath}/sendMessage"
+                    <form:form method="post" action="${pageContext.request.contextPath}/tweets/sendMessage"
                                modelAttribute="message" role="form" style="display: block;">
                         <h4 class="w-90 p-3 align-content-center">New message</h4>
                         <input class="form-control" type="text" placeholder="${user.username}" readonly/>

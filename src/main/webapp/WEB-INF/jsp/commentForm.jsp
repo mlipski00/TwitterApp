@@ -92,19 +92,17 @@
                     <a class="nav-link nav-dropdown-toggle" href="#">
                         <i class="nav-icon icon-puzzle"></i> Comments menu</a>
                     <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> All comments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Newest 10 comments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="nav-icon icon-puzzle"></i> Oldest 10 comments</a>
-                        </li>
-
+                        <a class="nav-link nav-dropdown-toggle" href="${pageContext.request.contextPath}/">
+                            <i class="nav-icon icon-puzzle"></i> Messages menu</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/">
+                                    <i class="nav-icon icon-puzzle"></i> Inbox</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/">
+                                    <i class="nav-icon icon-puzzle"></i> Outbox</a>
+                            </li>
                     </ul>
                 </li>
         </nav>

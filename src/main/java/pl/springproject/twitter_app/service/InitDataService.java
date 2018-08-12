@@ -42,12 +42,6 @@ public class InitDataService implements ApplicationListener<ContextRefreshedEven
         user.setUserDetails("Enim integre appellantur no vix. At per vero zril pertinax. Exerci utamur tritani id vel, ne tation officiis scripserit qui.");
         userRepository.save(user);
 
-        Message message = new Message();
-        message.setReciver(user);
-        message.setText("Enim integre appellantur no vix.");
-        message.setRead(false);
-        messageRespository.save(message);
-
         Tweet tweet = new Tweet();
         tweet.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales auctor mi, eu pharetra est gravida eget. Proin libero");
         Set<Comment> comments = new HashSet<>();
@@ -105,5 +99,12 @@ public class InitDataService implements ApplicationListener<ContextRefreshedEven
         user3.setUserDetails("Enim integre appellantur no vix. At per vero zril pertinax. Exerci utamur tritani id vel, ne tation officiis scripserit qui.");
         userRepository.save(user3);
 
+
+        Message message = new Message();
+        message.setReciver(user);
+        message.setText("Enim integre appellantur no vix.");
+        message.setRead(false);
+        message.setSender(user2);
+        messageRespository.save(message);
     }
 }

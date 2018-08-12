@@ -20,9 +20,6 @@ import javax.validation.Valid;
 public class MessageController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private AuthenticationFacade authenticationFacade;
 
     @Autowired
@@ -40,6 +37,7 @@ public class MessageController {
         model.addAttribute("message", new Message());
         model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("users", messageService.getReciversList());
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "messageForm";
     }
 
@@ -50,11 +48,24 @@ public class MessageController {
             model.addAttribute("message", message);
             model.addAttribute("user", authentication.getPrincipal());
             model.addAttribute("users", messageService.getReciversList());
+            model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
             return "messageForm";
         }
         message.setSender(userService.getLoggedUser());
         message.setRead(false);
         messageRespository.save(message);
-        return "messageForm";
+        model.addAttribute("messages", messageRespository.findAllByReciver(userService.getLoggedUser()));
+        model.addAttribute("users", messageService.getReciversList());
+        model.addAttribute("user", authentication.getPrincipal());
+        return "messageInboxList";
+    }
+
+    @RequestMapping(value = "/tweets/inbox", method = RequestMethod.GET)
+    public String openInbox(Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        model.addAttribute("messages", messageRespository.findAllByReciver(userService.getLoggedUser()));
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
+        model.addAttribute("user", authentication.getPrincipal());
+        return "messageInboxList";
     }
 }

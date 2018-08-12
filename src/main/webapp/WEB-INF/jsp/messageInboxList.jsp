@@ -130,25 +130,24 @@
 
         <%--=================cards=================--%>
         <div class="container">
-            <h1 class="w-90 p-3 align-content-center">${user.username}! ${pageMessage}</h1>
-            <div class="card">
-                <div class="card-body">
-                    <form:form method="post" action="${pageContext.request.contextPath}/${formAction}"
-                               modelAttribute="tweet" role="form" style="display: block;">
-                        <h4 class="w-90 p-3 align-content-center">${formMessage}</h4>
-                        <input class="form-control" type="text" placeholder="${user.username}" readonly/>
-                        <hr>
-                        <div class="form-group">
-                            <form:textarea path="text" type="textarea" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type tweet content" value=""/>
-                            <form:errors path="text" cssClass="error"/>
+            <h1 class="w-90 p-3 align-content-center">Inbox</h1>
+            <div class="row">
+                <c:forEach items="${messages}" var="message">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">From: ${message.sender.username}</h5>
+                                <h6>${message.created}</h6>
+                                <p class="card-text">${message.text}</p>
+                                <hr>
+                                <a href="${pageContext.request.contextPath}/tweets/message/${message.id}" class="btn btn-primary">Open Message</a>
+                            </div>
                         </div>
-                            <form:hidden path="id" value="${tweet.id}" />
-                            <%--<form:hidden path="user" value="${tweet.user}" />--%>
-                        <div class="form-group">
-                                    <input type="submit" class="form-control btn btn-success" value="${formMessage}">
-                        </div>
-                    </form:form>
-                </div>
+                    </div>
+                </c:forEach>
+                <c:if test="${fn:length(messages) < 1}">
+                    <i class="failed">No Messages</i>
+                </c:if>
             </div>
         </div>
     </main>

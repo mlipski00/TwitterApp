@@ -48,7 +48,7 @@
     </ul>
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="${pageContext.request.contextPath}/tweets/inbox">
                 <c:if test="${unreadMessages > 0}">
                     <i class="icon-bell" data-toggle="tooltip" data-placement="left" title="New messages"></i>
                     <span class="badge badge-pill badge-danger">${unreadMessages}</span>
@@ -85,20 +85,17 @@
                 </li>
                 <li class="nav-title">Comments</li>
                 <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon icon-puzzle"></i> Comments menu</a>
+                    <a class="nav-link nav-dropdown-toggle" href="${pageContext.request.contextPath}/">
+                        <i class="nav-icon icon-puzzle"></i> Messages menu</a>
                     <ul class="nav-dropdown-items">
-                        <a class="nav-link nav-dropdown-toggle" href="${pageContext.request.contextPath}/">
-                            <i class="nav-icon icon-puzzle"></i> Messages menu</a>
-                        <ul class="nav-dropdown-items">
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/">
-                                    <i class="nav-icon icon-puzzle"></i> Inbox</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/">
-                                    <i class="nav-icon icon-puzzle"></i> Outbox</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/tweets/inbox">
+                                <i class="nav-icon icon-puzzle"></i> Inbox</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/">
+                                <i class="nav-icon icon-puzzle"></i> Outbox</a>
+                        </li>
                     </ul>
                 </li>
         </nav>
@@ -137,6 +134,12 @@
                             <p class="card-text">Email: ${singleUser.email}</p>
                             <p class="card-text">Info: ${singleUser.userDetails}</p>
                             <a href="${pageContext.request.contextPath}/tweets/user/${singleUser.id}" class="btn btn-primary">Tweets</a>
+                            <c:if test="${singleUser.email != user.email}">
+                            <a href="${pageContext.request.contextPath}/tweets/sendMessage/${singleUser.id}" class="btn btn-secondary">Send Message</a>
+                            </c:if>
+                            <c:if test="${singleUser.email == user.email}">
+                                <a href="${pageContext.request.contextPath}/tweets/userDetails/${singleUser.id}" class="btn btn-warning">Edit User</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

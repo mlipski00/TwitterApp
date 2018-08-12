@@ -16,7 +16,11 @@
 *.iml
 *.ipr
 /src/main/resources/static/node_modules/*
-
+/src/main/resources/static/vendors/*
+/src/main/resources/static/css/*
+/src/main/resources/static/img/*
+/src/main/resources/static/icons/*
+/src/main/resources/static/js/*
 ### NetBeans ###
 /nbproject/private/
 /build/

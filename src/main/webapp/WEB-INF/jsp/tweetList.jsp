@@ -143,15 +143,22 @@
                                     <a href="${pageContext.request.contextPath}/addComment/${tweet.id}" class="btn btn-primary">Comment</a>
                                     <c:if test="${tweet.user.email == user.email}">
                                         <a href="${pageContext.request.contextPath}/tweet/edit/${tweet.id}" class="btn btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <a href="${pageContext.request.contextPath}/tweet/delete/${tweet.id}" class="btn btn-danger">Delete</a>
                                     </c:if>
                                 </div>
                                 <hr>
                                 <c:if test="${fn:length(tweet.comments) < 1}">
                                     <i class="failed">No comments</i>
                                 </c:if>
+                                <c:if test="${fn:length(tweet.comments) > 0}">
                                 <table class="table table-bordered table-sm">
                                     <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Created</th>
+                                        <th>Text</th>
+                                        <th>Actions</th>
+                                    </tr>
                                     <c:forEach items="${tweet.comments}" var="comment">
                                     </thead>
                                     <tbody>
@@ -159,16 +166,17 @@
                                         <td>${comment.user.username}</td>
                                         <td>${comment.created}</td>
                                         <td>${comment.text}</td>
+                                        <td>
                                         <c:if test="${comment.user.email == user.email}">
-                                            <td>
-                                                <a href="#" class="btn btn-outline-warning btn-sm">Edit</a>
-                                                <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
-                                            </td>
+                                                <a href="${pageContext.request.contextPath}/tweet/comment/edit/${comment.id}" class="btn btn-outline-warning btn-sm">Edit</a>
+                                                <a href="${pageContext.request.contextPath}/tweet/comment/delete/${comment.id}" class="btn btn-outline-danger btn-sm">Delete</a>
                                         </c:if>
+                                        </td>
                                     </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
+                                </c:if>
                             </div>
                         </div>
                     </div>

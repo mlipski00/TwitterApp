@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import pl.springproject.twitter_app.domain.Comment;
 import pl.springproject.twitter_app.domain.CustomUserDetails;
 import pl.springproject.twitter_app.domain.Tweet;
@@ -20,7 +21,6 @@ import pl.springproject.twitter_app.service.AuthenticationFacade;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @Transactional
@@ -80,7 +80,45 @@ public class CommentController {
         comment1.setUser(user);
         commentRepository.saveAndFlush(comment1);
         System.out.println(commentRepository.getOne(comment1.getId()));;
-
         return "redirect:tweets";
+    }
+
+    @RequestMapping(value = "tweet/comment/edit/{id}", method = RequestMethod.GET)
+    public String commentEditForm(@PathVariable("id") long id, Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        Optional<Comment> optionalComment = commentRepository.findById(id);
+        Comment comment = optionalComment.get();
+        model.addAttribute("comment", comment);
+        model.addAttribute("user", authentication.getPrincipal());
+        model.addAttribute("pageMessage", "Edit your comment.");
+        model.addAttribute("formMessage", "Edit comment");
+        model.addAttribute("formAction", "editComment");
+        return "commentForm";
+    }
+
+    @RequestMapping(value = "/editComment", method = RequestMethod.POST)
+    public String commentEditProcess(@Valid Comment comment, BindingResult result, Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        if (result.hasErrors()) {
+            model.addAttribute("user", authentication.getPrincipal());
+            model.addAttribute("comment", comment);
+            model.addAttribute("pageMessage", "Edit your comment.");
+            model.addAttribute("formMessage", "Edit comment");
+            model.addAttribute("formAction", "editComment");
+            return "tweetForm";
+        }
+        Optional<Comment> optionalComment = commentRepository.findById(comment.getId());
+        Comment comment1 = optionalComment.get();
+        comment1.setText(comment.getText());
+        commentRepository.save(comment1);
+        return "redirect:tweets";
+    }
+
+    @RequestMapping(value = "/tweet/comment/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView commentDelete(@PathVariable("id") long id) {
+        Optional<Comment> optionalComment = commentRepository.findById(id);
+        Comment comment = optionalComment.get();
+        commentRepository.delete(comment);
+        return new ModelAndView("redirect:/tweets");
     }
 }

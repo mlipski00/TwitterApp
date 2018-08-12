@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import pl.springproject.twitter_app.domain.CustomUserDetails;
 import pl.springproject.twitter_app.domain.Tweet;
 import pl.springproject.twitter_app.domain.User;
@@ -68,7 +69,7 @@ public class TweetsController {
     }
 
     @RequestMapping(value = "tweet/edit/{id}", method = RequestMethod.GET)
-    public String tweetEdit(@PathVariable("id") long id, Model model) {
+    public String tweetEditForm(@PathVariable("id") long id, Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
         Optional<Tweet> optionalTweet = tweetRepository.findById(id);
@@ -82,7 +83,7 @@ public class TweetsController {
     }
 
     @RequestMapping(value = "/editTweet", method = RequestMethod.POST)
-    public String editTweet(@Valid Tweet tweet, BindingResult result, Model model) {
+    public String tweetEditProcess(@Valid Tweet tweet, BindingResult result, Model model) {
         System.out.println(tweet);
         Authentication authentication = authenticationFacade.getAuthentication();
         if (result.hasErrors()) {
@@ -99,5 +100,13 @@ public class TweetsController {
         tweet2.setText(tweet.getText());
         tweetRepository.save(tweet2);
         return "redirect:tweets";
+    }
+
+    @RequestMapping(value = "tweet/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView tweetEditForm(@PathVariable("id") long id  ) {
+        Optional<Tweet> optionalTweet = tweetRepository.findById(id);
+        Tweet tweet = optionalTweet.get();
+        tweetRepository.delete(tweet);
+        return new ModelAndView("redirect:/tweets");
     }
 }

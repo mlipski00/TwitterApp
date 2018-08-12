@@ -20,7 +20,7 @@ public class Tweet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "user_tweets",
             joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -32,7 +32,7 @@ public class Tweet {
     @CreationTimestamp
     private Date created;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "tweet_comments",
             joinColumns = @JoinColumn(name = "tweet_id"),
             inverseJoinColumns = @JoinColumn(name = "comment_id"))

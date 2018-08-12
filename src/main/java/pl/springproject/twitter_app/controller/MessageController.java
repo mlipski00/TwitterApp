@@ -6,12 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.springproject.twitter_app.domain.Message;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
 import pl.springproject.twitter_app.service.MessageService;
 
 @Controller
-public class UserController {
+public class MessageController {
 
     @Autowired
     private UserRepository userRepository;
@@ -22,12 +23,12 @@ public class UserController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping(value = "/tweets/users", method = RequestMethod.GET)
-    public String getAllUsers(Model model) {
+    @RequestMapping(value = "/newmessage", method = {RequestMethod.GET, RequestMethod.POST})
+    public String sendMessage(Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
+        model.addAttribute("message", new Message());
         model.addAttribute("user", authentication.getPrincipal());
-        model.addAttribute("allusers", userRepository.findAll());
-        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
-        return "userList";
+        model.addAttribute("users", messageService.getReciversList());
+        return "messageForm";
     }
 }

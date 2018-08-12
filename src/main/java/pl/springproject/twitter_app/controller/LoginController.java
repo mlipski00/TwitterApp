@@ -13,6 +13,7 @@ import pl.springproject.twitter_app.domain.User;
 import pl.springproject.twitter_app.repository.RoleRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
+import pl.springproject.twitter_app.service.MessageService;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -31,6 +32,9 @@ public class LoginController {
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
+    @Autowired
+    private MessageService messageService;
+
 
     @RequestMapping(value = {"/login"},  method = RequestMethod.GET)
     public String getLoginPage(Model model) {
@@ -47,6 +51,7 @@ public class LoginController {
         model.addAttribute("formMessage", "Add tweet");
         model.addAttribute("tweet", new Tweet());
         model.addAttribute("formAction", "addTweet");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "tweetForm";
     }
 

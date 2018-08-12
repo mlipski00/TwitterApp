@@ -9,6 +9,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 <head>
     <base href="./">
@@ -53,8 +54,13 @@
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item d-md-down-none">
             <a class="nav-link" href="#">
-                <i class="icon-bell"></i>
-                <span class="badge badge-pill badge-danger">5</span>
+                <c:if test="${unreadMessages > 0}">
+                    <i class="icon-bell" data-toggle="tooltip" data-placement="left" title="New messages"></i>
+                    <span class="badge badge-pill badge-danger">${unreadMessages}</span>
+                </c:if>
+                <c:if test="${unreadMessages < 1}">
+                    <i class="icon-bell" data-toggle="tooltip" data-placement="left" title="No new messages"></i>
+                </c:if>
             </a>
         </li>
         <li>
@@ -70,17 +76,17 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-success" href="#" target="_top">
+                    <a class="nav-link nav-link-success" href="${pageContext.request.contextPath}/" target="_top">
                         <i class="nav-icon icon-cloud-download"></i> Tweet now!</a>
                 </li>
                 <li class="nav-title">Explore App</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/newtweets">
                         <i class="nav-icon icon-drop"></i> Newest tweets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon icon-pencil"></i> Message</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/newmessage">
+                        <i class="nav-icon icon-pencil"></i> New message</a>
                 </li>
                 <li class="nav-title">Comments</li>
                 <li class="nav-item nav-dropdown">
@@ -112,7 +118,7 @@
                 <a href="${pageContext.request.contextPath}/tweets">All tweets</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">Newest 10 tweets</a>
+                <a href="${pageContext.request.contextPath}/newtweets">Newest 5 tweets</a>
             </li>
             <!-- Breadcrumb Menu-->
             <li class="breadcrumb-menu d-md-down-none">
@@ -144,9 +150,7 @@
                             <form:hidden path="id" value="${tweet.id}" />
                             <%--<form:hidden path="user" value="${tweet.user}" />--%>
                         <div class="form-group">
-
                                     <input type="submit" class="form-control btn btn-success" value="${formMessage}">
-
                         </div>
                     </form:form>
                 </div>

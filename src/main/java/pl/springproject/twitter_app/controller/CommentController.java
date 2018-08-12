@@ -17,6 +17,7 @@ import pl.springproject.twitter_app.repository.CommentRepository;
 import pl.springproject.twitter_app.repository.TweetRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
+import pl.springproject.twitter_app.service.MessageService;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -38,6 +39,9 @@ public class CommentController {
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping(value = "/addComment/{tweetId}", method = RequestMethod.GET)
     public String commentForm(@PathVariable("tweetId") long tweetId, Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -51,6 +55,7 @@ public class CommentController {
         model.addAttribute("pageMessage", "Add new comment.");
         model.addAttribute("formMessage", "Add comment");
         model.addAttribute("formAction", "addComment");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "commentForm";
     }
 
@@ -64,12 +69,12 @@ public class CommentController {
             model.addAttribute("pageMessage", "Add new comment.");
             model.addAttribute("formMessage", "Add comment");
             model.addAttribute("formAction", "addComment");
+            model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
             return "commentForm";
         }
         Comment comment1 = new Comment();
         comment1.setTweet(comment.getTweet());
         comment1.setText(comment.getText());
-
 
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         Optional<User> userOptional = userRepository.findByEmail(customUserDetails.getEmail());
@@ -93,6 +98,7 @@ public class CommentController {
         model.addAttribute("pageMessage", "Edit your comment.");
         model.addAttribute("formMessage", "Edit comment");
         model.addAttribute("formAction", "editComment");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "commentForm";
     }
 
@@ -105,6 +111,7 @@ public class CommentController {
             model.addAttribute("pageMessage", "Edit your comment.");
             model.addAttribute("formMessage", "Edit comment");
             model.addAttribute("formAction", "editComment");
+            model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
             return "tweetForm";
         }
         Optional<Comment> optionalComment = commentRepository.findById(comment.getId());

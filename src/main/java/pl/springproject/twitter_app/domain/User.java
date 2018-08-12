@@ -31,6 +31,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    private String userDetails;
+
     private boolean active;
 
     @NotEmpty
@@ -55,6 +57,19 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     private Set<Tweet> tweets;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "sender_messages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
+    private Set<Message> sendedMessages;
+
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "reciver_messages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
+    private Set<Message>  recivedMessages;
 
     public User(User user) {
         this.active = user.isActive();

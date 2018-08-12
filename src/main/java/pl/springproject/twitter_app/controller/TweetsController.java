@@ -15,6 +15,7 @@ import pl.springproject.twitter_app.domain.User;
 import pl.springproject.twitter_app.repository.TweetRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
+import pl.springproject.twitter_app.service.MessageService;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -34,12 +35,38 @@ public class TweetsController {
     @Autowired
     private AuthenticationFacade authenticationFacade;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping(value = "/tweets", method = {RequestMethod.GET, RequestMethod.POST})
     public String getAllTweets(Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
         model.addAttribute("tweets", tweetRepository.findAllByOrderByIdDesc());
         model.addAttribute("pageMessage", "All tweets");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
+        return "tweetList";
+    }
+
+    @RequestMapping(value = "/newtweets", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getNewTweets(Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        model.addAttribute("user", authentication.getPrincipal());
+        model.addAttribute("tweets", tweetRepository.findFirst5ByOrderByIdDesc());
+        model.addAttribute("pageMessage", "Last 5 tweets");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
+        return "tweetList";
+    }
+
+    @RequestMapping(value = "/tweets/user/{id}", method = {RequestMethod.GET})
+    public String getUserTweets(@PathVariable("id") long id, Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = userOptional.get();
+        model.addAttribute("user", authentication.getPrincipal());
+        model.addAttribute("tweets", tweetRepository.findAllByUser(user));
+        model.addAttribute("pageMessage", user.getUsername() + " tweets");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "tweetList";
     }
 
@@ -51,6 +78,7 @@ public class TweetsController {
             model.addAttribute("pageMessage", "Add new tweet.");
             model.addAttribute("formMessage", "Add tweet");
             model.addAttribute("formAction", "addTweet");
+            model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
             return "tweetForm";
         }
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -79,6 +107,7 @@ public class TweetsController {
         model.addAttribute("pageMessage", "Edit your tweet.");
         model.addAttribute("formMessage", "Edit tweet");
         model.addAttribute("formAction", "editTweet");
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         return "tweetForm";
     }
 
@@ -92,6 +121,7 @@ public class TweetsController {
             model.addAttribute("pageMessage", "Edit your tweet.");
             model.addAttribute("formMessage", "Add tweet");
             model.addAttribute("formAction", "editTweet");
+            model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
             return "tweetForm";
         }
         model.addAttribute("user", authentication.getPrincipal());
@@ -103,7 +133,7 @@ public class TweetsController {
     }
 
     @RequestMapping(value = "tweet/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView tweetEditForm(@PathVariable("id") long id  ) {
+    public ModelAndView tweetEditForm(@PathVariable("id") long id) {
         Optional<Tweet> optionalTweet = tweetRepository.findById(id);
         Tweet tweet = optionalTweet.get();
         tweetRepository.delete(tweet);

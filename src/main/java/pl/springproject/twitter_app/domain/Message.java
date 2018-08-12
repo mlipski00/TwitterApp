@@ -3,7 +3,6 @@ package pl.springproject.twitter_app.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,36 +10,33 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Setter
 @Getter
-@ToString
+@Setter
 @NoArgsConstructor
-public class Comment {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @CreationTimestamp
     private Date created;
 
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 500)
     private String text;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "tweet_comments",
-            joinColumns = @JoinColumn(name = "comment_id"),
-            inverseJoinColumns = @JoinColumn(name = "tweet_id"))
-    private Tweet tweet;
+    @JoinTable(name = "sender_messages",
+            joinColumns = @JoinColumn(name = "message_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private User sender;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_comments",
-            joinColumns = @JoinColumn(name = "comment_id"),
+    @JoinTable(name = "reciver_messages",
+            joinColumns = @JoinColumn(name = "message_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private User user;
+    private User reciver;
 
-    public Comment(@Size(min = 1, max = 250) String text, User user) {
-        this.text = text;
-        this.user = user;
-    }
+    private boolean isRead;
+
 }

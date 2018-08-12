@@ -31,7 +31,7 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <img class="navbar-brand-full" src="${pageContext.request.contextPath}/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
         <img class="navbar-brand-minimized" src="${pageContext.request.contextPath}/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
     </a>
@@ -93,7 +93,7 @@
                                 <i class="nav-icon icon-puzzle"></i> Inbox</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/tweets/outbox">
                                 <i class="nav-icon icon-puzzle"></i> Outbox</a>
                         </li>
                     </ul>

@@ -102,7 +102,7 @@ public class InitDataService implements ApplicationListener<ContextRefreshedEven
 
         Message message = new Message();
         message.setReciver(user);
-        message.setText("Enim integre appellantur no vix.");
+        message.setText("Enim integre appellantur no vix. Exerci utamur tritani id vel, ne tation officiis scripserit qui. Exerci utamur tritani id vel, ne tation officiis scripserit qui.");
         message.setRead(false);
         message.setSender(user2);
         messageRespository.save(message);

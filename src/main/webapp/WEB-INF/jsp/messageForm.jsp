@@ -139,6 +139,7 @@
                         <input class="form-control" type="text" placeholder="${user.username}" readonly/>
                         <hr>
                         <h6 class="w-90 p-3 align-content-center">Send to:</h6>
+
                         <div class="form-group">
                             <form:select class="form-control" itemValue="id" itemLabel="username" multiple="false"
                                          path="reciver" items="${users}"/>

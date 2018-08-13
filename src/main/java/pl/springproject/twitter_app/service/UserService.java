@@ -5,4 +5,6 @@ import pl.springproject.twitter_app.domain.User;
 public interface UserService {
 
     User getLoggedUser();
+
+    User getUserById(long id);
 }

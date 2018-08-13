@@ -39,4 +39,7 @@ public class Message {
 
     private boolean isRead;
 
+    public boolean getIsRead() {
+        return isRead;
+    }
 }

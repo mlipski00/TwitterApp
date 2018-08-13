@@ -25,4 +25,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(customUserDetails.getId());
         return userOptional.get();
     }
+
+    @Override
+    public User getUserById(long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.get();
+    }
 }

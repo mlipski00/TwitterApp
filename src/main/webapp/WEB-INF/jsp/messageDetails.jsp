@@ -132,26 +132,19 @@
         <div class="container">
             <h1 class="w-90 p-3 align-content-center">Inbox</h1>
             <div class="row">
-                <c:forEach items="${messages}" var="message">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">From: ${message.sender.username}
-                                    <c:if test="${message.isRead == false}">
-                                        <span class="badge badge-pill badge-danger">New message</span>
-                                    </c:if>
-                                </h4>
-                                <h6>${message.created}</h6>
-                                <p class="card-text">${fn:substring(message.text, 0, 20)}...</p>
+                                <span class="card-title"><span class="h5">From: ${message.sender.username} </span><span class="font-italic">${message.sender.email}</span></span>
                                 <hr>
-                                <a href="${pageContext.request.contextPath}/tweets/message/${message.id}" class="btn btn-primary">Open Message</a>
+                                <span class="card-title"><span class="h5">To: ${message.reciver.username} </span><span class="font-italic">${message.reciver.email}</span></span><hr>
+                                <h6>${message.created}</h6>
+                                <p class="card-text">${message.text}</p>
+                                <hr>
+                                <a href="${pageContext.request.contextPath}/tweets/message/reply/${message.sender.id}" class="btn btn-warning">Reply</a>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
-                <c:if test="${fn:length(messages) < 1}">
-                    <i class="failed">No Messages</i>
-                </c:if>
             </div>
         </div>
     </main>

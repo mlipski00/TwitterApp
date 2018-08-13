@@ -128,30 +128,29 @@
             <div class="animated fadeIn"></div>
         </div>
 
-        <%--=================cards=================--%>
+        <%--=================main=================--%>
         <div class="container">
-            <h1 class="w-90 p-3 align-content-center">Inbox</h1>
-            <div class="row">
-                <c:forEach items="${messages}" var="message">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">From: ${message.sender.username}
-                                    <c:if test="${message.isRead == false}">
-                                        <span class="badge badge-pill badge-danger">New message</span>
-                                    </c:if>
-                                </h4>
-                                <h6>${message.created}</h6>
-                                <p class="card-text">${fn:substring(message.text, 0, 20)}...</p>
-                                <hr>
-                                <a href="${pageContext.request.contextPath}/tweets/message/${message.id}" class="btn btn-primary">Open Message</a>
-                            </div>
+            <h1 class="w-90 p-3 align-content-center">${user.username}! Write message</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form:form method="post" action="${pageContext.request.contextPath}/tweets/sendMessage"
+                               modelAttribute="message" role="form" style="display: block;">
+                        <h4 class="w-90 p-3 align-content-center">New message</h4>
+                        <input class="form-control" type="text" placeholder="${user.username}" readonly/>
+                        <hr>
+                        <h6 class="w-90 p-3 align-content-center">Send to:</h6>
+                        <input class="form-control" type="text" placeholder="${reciver.username}" readonly/>
+                        <form:hidden path="reciver" value="${reciver.id}" />
+                        <hr>
+                        <div class="form-group">
+                            <form:textarea path="text" type="textarea" name="textarea" id="textarea" rows="3" tabindex="1" class="form-control" placeholder="Type message" value=""/>
+                            <form:errors path="text" cssClass="error"/>
                         </div>
-                    </div>
-                </c:forEach>
-                <c:if test="${fn:length(messages) < 1}">
-                    <i class="failed">No Messages</i>
-                </c:if>
+                        <div class="form-group">
+                                    <input type="submit" class="form-control btn btn-success" value="Send message">
+                        </div>
+                    </form:form>
+                </div>
             </div>
         </div>
     </main>

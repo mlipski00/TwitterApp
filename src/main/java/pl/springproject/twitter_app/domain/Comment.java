@@ -13,7 +13,6 @@ import java.util.Date;
 @Entity
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
 public class Comment {
 

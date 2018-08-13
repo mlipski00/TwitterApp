@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Table(name = "user")
 public class User {
 
@@ -31,6 +32,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Size(min = 1, max = 250)
     private String userDetails;
 
     private boolean active;

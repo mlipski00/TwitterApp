@@ -130,23 +130,25 @@
 
         <%--=================cards=================--%>
         <div class="container">
-            <h1 class="w-90 p-3 align-content-center">Inbox</h1>
+            <h1 class="w-90 p-3 align-content-center">Outbox</h1>
             <div class="row">
+                <c:forEach items="${messages}" var="message">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <span class="card-title"><span class="h5">From: ${message.sender.username} </span><span class="font-italic">${message.sender.email}</span></span>
-                                <hr>
-                                <span class="card-title"><span class="h5">To: ${message.reciver.username} </span><span class="font-italic">${message.reciver.email}</span></span><hr>
+                                <h4 class="card-title">To: ${message.reciver.username}
+                                </h4>
                                 <h6>${message.created}</h6>
-                                <p class="card-text">${message.text}</p>
+                                <p class="card-text">${fn:substring(message.text, 0, 20)}...</p>
                                 <hr>
-                                <c:if test="${doShowReplyButton != 1}">
-                                <a href="${pageContext.request.contextPath}/tweets/message/reply/${message.sender.id}" class="btn btn-warning">Reply</a>
-                                </c:if>
+                                <a href="${pageContext.request.contextPath}/tweets/messageSend/${message.id}" class="btn btn-primary">Open Message</a>
                             </div>
                         </div>
                     </div>
+                </c:forEach>
+                <c:if test="${fn:length(messages) < 1}">
+                    <i class="failed">No Messages</i>
+                </c:if>
             </div>
         </div>
     </main>

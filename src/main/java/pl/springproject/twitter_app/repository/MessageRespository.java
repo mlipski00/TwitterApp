@@ -10,4 +10,5 @@ public interface MessageRespository extends JpaRepository<Message, Long> {
 
     public List<Message> findAllByReciverAndIsReadIsFalse(User reciver);
     public List<Message> findAllByReciver(User reciver);
+    public List<Message> findAllBySender(User sender);
 }

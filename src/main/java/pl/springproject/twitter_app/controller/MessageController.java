@@ -84,6 +84,15 @@ public class MessageController {
         return "messageInboxList";
     }
 
+    @RequestMapping(value = "/tweets/outbox", method = RequestMethod.GET)
+    public String openOutbox(Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        model.addAttribute("messages", messageRespository.findAllBySender(userService.getLoggedUser()));
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
+        model.addAttribute("user", authentication.getPrincipal());
+        return "messageOutboxList";
+    }
+
     @RequestMapping(value = "/tweets/message/{id}", method = RequestMethod.GET)
     public String openSingleMessage(@PathVariable("id") long id, Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -94,6 +103,20 @@ public class MessageController {
         model.addAttribute("message", message);
         model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
         model.addAttribute("user", authentication.getPrincipal());
+        return "messageDetails";
+    }
+
+    @RequestMapping(value = "/tweets/messageSend/{id}", method = RequestMethod.GET)
+    public String openSingleSendedMessage(@PathVariable("id") long id, Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        Optional<Message> messageOptional = messageRespository.findById(id);
+        Message message = messageOptional.get();
+        message.setRead(true);
+        messageRespository.save(message);
+        model.addAttribute("message", message);
+        model.addAttribute("unreadMessages", messageService.numberOfUnreadMessages());
+        model.addAttribute("user", authentication.getPrincipal());
+        model.addAttribute("doShowReplyButton", 1);
         return "messageDetails";
     }
 }

@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
                 return true;
             }
             for (User user : userList) {
-                if (user.getEmail() == email) {
+                if (user.getEmail().equals(email)) {
                     return false;
                 }
             }

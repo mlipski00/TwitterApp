@@ -1,12 +1,10 @@
 package pl.springproject.twitter_app.domain;
 
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
 import pl.springproject.twitter_app.validator.UniqueEmail;
 import pl.springproject.twitter_app.validator.ValidationGroupUniqueEmail;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

@@ -8,11 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.springproject.twitter_app.domain.*;
 import pl.springproject.twitter_app.repository.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.swing.text.html.parser.Entity;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Component

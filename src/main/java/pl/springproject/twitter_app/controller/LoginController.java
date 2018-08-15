@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.springproject.twitter_app.domain.Role;
@@ -14,8 +15,11 @@ import pl.springproject.twitter_app.repository.RoleRepository;
 import pl.springproject.twitter_app.repository.UserRepository;
 import pl.springproject.twitter_app.service.AuthenticationFacade;
 import pl.springproject.twitter_app.service.MessageService;
+import pl.springproject.twitter_app.validator.ValidationGroupUniqueEmail;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -61,7 +65,7 @@ public class LoginController {
         return "registration";
     }
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String processRegistration(@Valid User user, BindingResult result, Model model) {
+    public String processRegistration(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "registration";
         }
@@ -74,7 +78,7 @@ public class LoginController {
         user.setActive(true);
         user.setRoles(roles);
         userRepository.save(user);
-        model.addAttribute("message", "User added");
-        return "tweetForm";
+        model.addAttribute("registrationResult", 1);
+        return "login";
     }
 }

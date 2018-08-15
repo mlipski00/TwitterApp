@@ -38,7 +38,7 @@ public class Comment {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private User user;
 
-    public Comment(@Size(min = 1, max = 250) String text, User user) {
+    public Comment(@Size(min = 1, max = 60) String text, User user) {
         this.text = text;
         this.user = user;
     }

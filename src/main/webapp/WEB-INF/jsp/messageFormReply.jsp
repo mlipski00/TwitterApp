@@ -119,7 +119,7 @@
             <li class="breadcrumb-menu d-md-down-none">
                 <div class="btn-group" role="group" aria-label="Button group">
 
-                    <a class="btn" href="./">
+                    <a class="btn" href="${pageContext.request.contextPath}/tweets/user">
                         <i class="fa fa-user-o fa-lg mt-2"></i>  Hello ${user.username}!</a>
                 </div>
             </li>

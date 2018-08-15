@@ -36,14 +36,21 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        <c:if test="${registrationResult == 1}">
+                            <div class="alert alert-success" role="alert">
+                                User registered successfully
+                            </div>
+                        </c:if>
                         <div class="col-lg-12">
                             <form:form method="post" id="login-form" action="${pageContext.request.contextPath}/login"  modelAttribute="user"  role="form" style="display: block;">
                                 <c:if test="${param.error != null}">
                                     <i class="failed">Invalid email/password</i>
                                 </c:if>
+                                <div class="form-group">
                                 <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" value=""/>
                                 <form:errors path="username" cssClass="error"/>
-                                <%--<div class="form-group">--%>
+                                </div>
+                                        <%--<div class="form-group">--%>
                                     <%--<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">--%>
                                 <%--</div>--%>
                                 <div class="form-group">

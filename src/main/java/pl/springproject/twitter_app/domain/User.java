@@ -1,6 +1,7 @@
 package pl.springproject.twitter_app.domain;
 
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import pl.springproject.twitter_app.validator.UniqueEmail;
 import pl.springproject.twitter_app.validator.ValidationGroupUniqueEmail;
 
@@ -29,7 +30,7 @@ public class User {
     private String username;
 
     @NotEmpty
-    @Size(min = 6, max = 20)
+    @Size(min = 6)
     @Column(name = "password")
     private String password;
 
@@ -73,7 +74,7 @@ public class User {
     @JoinTable(name = "reciver_messages",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id"))
-    private Set<Message>  recivedMessages;
+    private Set<Message> recivedMessages;
 
     public User(User user) {
         this.active = user.isActive();
@@ -84,9 +85,9 @@ public class User {
         this.password = user.getPassword();
     }
 
-    public User(@NotEmpty String username, @NotEmpty @Size(min = 6, max = 20) String password, boolean active, @NotEmpty @Email String email) {
+    public User(@NotEmpty String username, @NotEmpty @Size(min = 6) String password, boolean active, @NotEmpty @Email String email) {
         this.username = username;
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         this.active = active;
         this.email = email;
     }

@@ -47,12 +47,9 @@
                                     <i class="failed">Invalid email/password</i>
                                 </c:if>
                                 <div class="form-group">
-                                <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" value=""/>
+                                <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" value="m@wp.pl"/>
                                 <form:errors path="username" cssClass="error"/>
                                 </div>
-                                        <%--<div class="form-group">--%>
-                                    <%--<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="user">--%>
-                                <%--</div>--%>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" value="user123">
                                 </div>

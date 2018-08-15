@@ -2,6 +2,7 @@ package pl.springproject.twitter_app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,6 +78,7 @@ public class LoginController {
         roles.add(optionalRole.get());
         user.setActive(true);
         user.setRoles(roles);
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         model.addAttribute("registrationResult", 1);
         return "login";

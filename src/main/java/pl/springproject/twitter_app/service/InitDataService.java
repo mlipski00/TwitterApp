@@ -33,7 +33,7 @@ public class InitDataService implements ApplicationListener<ContextRefreshedEven
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        User user = new User("Michał", "user123", true, "m@wp.pl");
+        User user = new User("Marek", "user123", true, "m@wp.pl");
         user.setRoles(roles);
         user.setUserDetails("Enim integre appellantur no vix. At per vero zril pertinax. Exerci utamur tritani id vel, ne tation officiis scripserit qui.");
         userRepository.save(user);

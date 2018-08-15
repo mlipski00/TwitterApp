@@ -6,9 +6,7 @@ import pl.springproject.twitter_app.validator.UniqueEmail;
 import pl.springproject.twitter_app.validator.ValidationGroupUniqueEmail;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Entity
@@ -25,12 +23,11 @@ public class User {
     @Column(name = "user_id")
     private long id;
 
-    @NotEmpty
+    @Size(min = 1, message = "username can not be empty")
     @Column(name = "name")
     private String username;
 
-    @NotEmpty
-    @Size(min = 6)
+    @Size(min = 6,  message = "password must be at least 6 characters")
     @Column(name = "password")
     private String password;
 
@@ -39,8 +36,8 @@ public class User {
 
     private boolean active;
 
-    @NotEmpty
-    @Email
+    //@Email
+    @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "type correct email")
     @UniqueEmail(groups = ValidationGroupUniqueEmail.class)
     private String email;
 
@@ -85,7 +82,7 @@ public class User {
         this.password = user.getPassword();
     }
 
-    public User(@NotEmpty String username, @NotEmpty @Size(min = 6) String password, boolean active, @NotEmpty @Email String email) {
+    public User(@Size(min = 1, message = "username can not be empty") String username, @Size(min = 6,  message = "password must be at least 6 characters") String password, boolean active, @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "type correct email") String email) {
         this.username = username;
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         this.active = active;

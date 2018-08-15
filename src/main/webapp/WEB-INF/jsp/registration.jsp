@@ -10,6 +10,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -29,10 +31,10 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="/login" id="login-form-link">Login</a>
+                            <a href="${pageContext.request.contextPath}/login" id="login-form-link">Login</a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="/registration" class="active"id="register-form-link">Register</a>
+                            <a href="${pageContext.request.contextPath}/registration" class="active"id="register-form-link">Register</a>
                         </div>
                     </div>
                     <hr>
@@ -40,7 +42,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form:form method="post" modelAttribute="user" id="register-form" action="/registration" role="form" style="display: block;">
+                            <form:form method="post" modelAttribute="user" id="register-form" action="${pageContext.request.contextPath}/registration" role="form" style="display: block;">
                                 <div class="form-group">
                                     <form:input path="username" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value=""/>
                                     <form:errors path="username" cssClass="error"/>

@@ -46,7 +46,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 //.loginProcessingUrl("/tweets/index")
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error");
+
     }
 
     private PasswordEncoder getPasswordEncoder() {
@@ -58,8 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-//                Pattern p = Pattern.compile(s);
-//                Matcher m = p.matcher(charSequence);
                 boolean result;
                 try {
                     result = BCrypt.checkpw(charSequence .toString(), s);
@@ -68,7 +69,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     return false;
                 }
                 return result;
-//                return m.matches();
             }
         };
     }

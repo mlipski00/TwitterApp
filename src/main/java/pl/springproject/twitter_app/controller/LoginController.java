@@ -18,8 +18,6 @@ import pl.springproject.twitter_app.service.AuthenticationFacade;
 import pl.springproject.twitter_app.service.MessageService;
 import pl.springproject.twitter_app.validator.ValidationGroupUniqueEmail;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.HashSet;
 import java.util.Optional;
@@ -41,13 +39,13 @@ public class LoginController {
     private MessageService messageService;
 
 
-    @RequestMapping(value = {"/login"},  method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String getLoginPage(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
-    @RequestMapping(value = {"/"},  method = RequestMethod.GET)
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String mainPage(Model model) {
         Authentication authentication = authenticationFacade.getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
@@ -60,11 +58,12 @@ public class LoginController {
         return "tweetForm";
     }
 
-    @RequestMapping(value = {"/registration"},  method = RequestMethod.GET)
+    @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
     public String getRegistrationPage(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String processRegistration(@Validated({ValidationGroupUniqueEmail.class, Default.class}) User user, BindingResult result, Model model) {
         if (result.hasErrors()) {

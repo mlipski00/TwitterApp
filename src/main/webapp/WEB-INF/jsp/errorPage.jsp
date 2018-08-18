@@ -38,11 +38,7 @@
                 <h4 class="pt-3">Houston, we have a problem!</h4>
                 <p class="text-muted">${errorMsg}</p>
             </div>
-            <div class="input-prepend input-group">
-                <div class="input-group-prepend">
-              </span>
-                </div>
-            </div>
+                <a href="${pageContext.request.contextPath}/">Back to main page</a>
         </div>
     </div>
 </div>

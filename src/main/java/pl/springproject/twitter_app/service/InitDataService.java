@@ -29,9 +29,10 @@ public class InitDataService implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Role role = new Role("USER");
+
         Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        roles.add(Role.ADMIN);
+        roles.add(Role.USER);
 
         User user = new User("Marek", "user123", true, "m@wp.pl");
         user.setRoles(roles);
